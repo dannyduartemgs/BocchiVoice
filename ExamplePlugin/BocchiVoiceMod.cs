@@ -36,7 +36,18 @@ namespace BocchiVoiceMod
             // 🧠 Initialize the NetworkSoundEventDefs for this mod
             InitNSE();
 
+            // 🧠 Config setting to enable/disable voicelines
+            enableVoicelines = Config.Bind<bool>(
+                new ConfigDefinition("Settings", "Enable Voicelines"),
+                true,
+                new ConfigDescription("Enable Bocchi voicelines when using the skin.")
+            );
+            enableVoicelines.SettingChanged += EnableVoicelines_SettingChanged;
+        }
 
+        private void EnableVoicelines_SettingChanged(object sender, EventArgs e)
+        {
+            RefreshNSE();
         }
 
         private void OnLoad()
